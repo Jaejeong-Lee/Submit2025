@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>파일명</title>
+  </head>
+  <body>
+    <div id="app">
+      x : <input type="text" v-model.number="x" />
+      <br />
+      y : <input type="text" v-model.number="y" />
+      <br />
+      덧셈 결과 : {{sum}}
+    </div>
+    <script type="text/javascript" src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+      var vm = Vue.createApp({
+        name: 'App',
+        data() {
+          return { x: 0, y: 0, sum: 0 };
+        },
+        watch: {
+          // watch 란?
+          // - Vue에서 특정 데이터의 변화를 감지하고
+          //   그에 따른 사이드 이펙트를 발생시킬 때 사용됨.
+          // - deep, immediate와 같은 옵션 가능
+          // -- deep : true -> 객체의 내부 속성까지 감지
+          // -- immediate : true -> watch가 처음 실행될 때, 데이터 감시 시작과 동시에 콜백 실행
+
+          x(current, old) {
+            console.log(`## x : ${old} --> ${current}`);
+            let result = Number(current) + Number(this.y);
+            // Number() : 값을 숫자로 변환하는 내장 함수
+
+            // var result = Number(current) + Number(this.y);
+            // var : 변수 선언, let 이나 const 가 더 권장됨.
+            if (isNaN(result)) this.sum = 0;
+            else this.sum = result;
+          },
+          y(current, old) {
+            console.log(`## y : ${old} --> ${current}`);
+            let result = Number(this.x) + Number(current);
+            if (isNaN(result)) this.sum = 0;
+            else this.sum = result;
+          },
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>
