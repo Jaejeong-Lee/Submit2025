@@ -8,12 +8,36 @@
   <body>
     <div id="app">
       <h1>사용자목록</h1>
-      <div class="radioWhich" @change="sortData">
+      <div class="radioWhich">
         정렬기준:
-        <input class="radioId" type="radio" name="radio" />id
-        <input class="radioName" type="radio" name="radio" />name
-        <input class="radioUsername" type="radio" name="radio" />username
-        <input class="radioPhone" type="radio" name="radio" />phone
+        <input
+          class="radioId"
+          type="radio"
+          name="radio"
+          value="id"
+          @change="sortData"
+        />id
+        <input
+          class="radioName"
+          type="radio"
+          name="radio"
+          value="name"
+          @change="sortData"
+        />name
+        <input
+          class="radioUsername"
+          type="radio"
+          name="radio"
+          value="username"
+          @change="sortData"
+        />username
+        <input
+          class="radioPhone"
+          type="radio"
+          name="radio"
+          value="phone"
+          @change="sortData"
+        />phone
       </div>
 
       <table class="table">
@@ -31,7 +55,7 @@
             <td>{{user.id}}</td>
             <td>{{user.name}}</td>
             <td>{{user.username}}</td>
-            <td>{{user.email}}</td>
+            <td>{{user.phone}}</td>
             <td>{{user.company.name}}</td>
           </tr>
         </tbody>
@@ -277,12 +301,28 @@
         name: 'App',
         data() {
           return {
-            users,
+            users: users,
+            sortKey: '',
           };
         },
         methods: {
-          sortData() {
-            console.log(e.target);
+          sortData(e) {
+            // 선택된 라디오 버튼의 value 가져오기 // chatGPT 도움 받음
+            const key = e.target.value;
+            this.sortKey = key;
+            // console.log(this.sortKey);
+
+            // 정렬 기준에 따라 users 배열 정렬 // chatGPT 도움 받음
+            this.users.sort((a, b) => {
+              // typeof
+              // 변수나 값의 자료형(type)을 확인하는 데 사용되는 연산자
+              if (typeof a[key] === 'string') {
+                return a[key].localeCompare(b[key]);
+                // localeCompare()
+                // : 문자열을 사전 순서대로 비교하여 문자열의 순서 결정함.
+              }
+              return a[key] - b[key];
+            });
           },
         },
       }).mount('#app');
