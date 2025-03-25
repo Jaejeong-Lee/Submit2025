@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>파일명</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" :value="name" @input="(e)=>this.name=e.target.value" />
+      <!-- 값은 name에 저장, input 이벤트가 발생하는 순간 바로 name에 작성 중인 값 반영시킴. -->
+      <!-- input 에서 e.target는 바로 그 input 요소를 가리킴  -->
+      <!-- e.target.value는 e.target이 참조하는 DOM 요소에서 현재 값을 가져옴-->
+      <br />이름: <span>{{name}}</span>
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+      let vm = Vue.createApp({
+        name: 'App',
+        data() {
+          return { name: '' };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>
