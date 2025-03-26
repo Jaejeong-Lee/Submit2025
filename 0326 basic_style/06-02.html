@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>파일명</title>
+  </head>
+  <body>
+    <div id="app">
+      <button
+        :style="style1"
+        @mouseover.stop="overEvent"
+        @mouseout.stop="outEvent"
+      >
+        테스트
+      </button>
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+      const { createApp, reactive } = Vue;
+
+      let vm = createApp({
+        name: 'App',
+        setup() {
+          // reactive : 여러 값을 한 번에 객체 형태로 전달하고 싶을 때 사용
+          // reactive는 반응형 상태를 만들기 위한 함수
+          // - 해당 데이터가 변경될 때 자동으로 Vue의 Dom에 반영되도록 함.
+          const style1 = reactive({
+            backgroundColor: 'aqua',
+            color: 'black',
+          });
+
+          const overEvent = () => {
+            console.log('overEvent');
+            style1.backgroundColor = 'purple';
+            style1.color = 'yellow';
+          };
+          const outEvent = () => {
+            console.log('outEvent');
+            style1.backgroundColor = 'aqua';
+            style1.color = 'black';
+          };
+
+          return {
+            style1,
+            overEvent,
+            outEvent,
+          };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

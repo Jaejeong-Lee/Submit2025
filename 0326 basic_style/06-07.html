@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>파일명</title>
+    <style>
+      .buttonColor {
+        background-color: aqua;
+        /* // 배경색 아쿠아 */
+        color: black;
+        /* // 글자색 검정 */
+      }
+      .buttonLayout {
+        text-align: center;
+        /* // 텍스트 중앙 정렬 */
+        width: 120px;
+        /* // 폭 120px */
+      }
+      .staticBorder {
+        /* // 경계선 카키색점선굵기1px */
+        border: khaki dashed 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <input type="checkbox" v-model="isLayout" />레이아웃적용여부<br />
+      <button class="staticBorder" :class="[myColor, isLayout? myLayout : ''] ">
+        <!-- 삼항연산자 사용됨. -->
+        <!-- 만약 레이아웃적용여부가 체크가 안 되어 있다면, 레이아웃을 적용 안 해야 함 -->
+        <!-- 그래서 ''으로 클래스 적용, 즉 클래스 부여 안 해서 style 적용 안 되게 만듦. -->
+        버튼
+      </button>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="text/javascript">
+      const { createApp, ref } = Vue;
+
+      const app = createApp({
+        setup() {
+          const isLayout = ref(false);
+          const myLayout = ref('buttonLayout');
+          const myColor = ref('buttonColor');
+
+          return {
+            isLayout,
+            myColor,
+            myLayout,
+          };
+        },
+      });
+
+      const vm = app.mount('#app');
+    </script>
+  </body>
+</html>
